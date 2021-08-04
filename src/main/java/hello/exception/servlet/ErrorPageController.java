@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -20,10 +21,14 @@ public class ErrorPageController {
     public static final String ERROR_STATUS_CODE ="javax.servlet.error.status_code";
 
     @RequestMapping("/error-page/404")
-    public String error404(HttpServletRequest request, HttpServletResponse response) {
+    public void error404(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("errorPage 404");
-        printErrorInfo(request);
-        return "error-page/404";
+        response.sendError(404, "404 오류!");
+    }
+
+    @RequestMapping("/error-page/400")
+    public void error400(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendError(400, "404 오류!");
     }
 
     @RequestMapping("/error-page/500")
